@@ -1,10 +1,19 @@
 package com.main.trycatch;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
     public static void menuPrincipal() {
+
+        ArrayList<String> nomes = new ArrayList<>();
+
+        nomes.add("lucas");
+        nomes.add("Enzo");
+        nomes.add("Eloisa");
+
         Scanner sc = new Scanner(System.in);
         System.out.println(" _________________");
         System.out.println("|      Menu       |");
@@ -13,11 +22,29 @@ public class Menu {
         System.out.println("|       3.        |");
         System.out.println("|_________________|");
         System.out.println("Selecione Uma Opção: ");
-        int opcao = sc.nextInt();
-        try{
+
+        try {
+
+            int opcao = sc.nextInt();
+            sc.nextLine();
+
             switch (opcao) {
+
                 case 1:
-                    System.out.println("Opção 1");
+                    System.out.println("Opção 1\n");
+                    for (int i = 0; i < nomes.size(); i++) {
+                        System.out.println((i + 1) + "-" + nomes.get(i));
+                    }
+                    System.out.println("Escolha o Nome: ");
+                    int escolha = sc.nextInt() - 1;
+                    sc.nextLine();
+                    try {
+                        System.out.println("Nome escolhido: " + nomes.get(escolha));
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Nome não encontrado");
+                        System.out.println("Erro: " + e.getMessage());
+                    }
+
                     break;
                 case 2:
                     System.out.println("Opção 2");
@@ -25,11 +52,17 @@ public class Menu {
                 case 3:
                     System.out.println("Opção 3");
                     break;
-            
+                default:
+                    System.out.println("Opção Inválida");
+                    break;
+
             }
-        } catch (Exception e){
+        } catch (ExceptionDado e) {
+            System.out.println("Número Inválido, Tente Novamente!");
             System.out.println("Erro: " + e.getMessage());
         }
+        sc.nextLine();
+
     }
 
     public static void divisaoDoisNumeros() {
@@ -45,5 +78,4 @@ public class Menu {
             e.getMessage();
         }
     }
-
 }
